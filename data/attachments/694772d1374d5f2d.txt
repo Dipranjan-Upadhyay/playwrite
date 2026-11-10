@@ -1,0 +1,3 @@
+PATCH https://restful-booker.herokuapp.com/booking/2687
+params: None
+body: {'totalprice': 1}

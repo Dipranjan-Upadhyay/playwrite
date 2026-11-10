@@ -1,0 +1,14 @@
+status: 200
+elapsed: 0.027s
+
+{
+  "firstname": "Mary",
+  "lastname": "Brown",
+  "totalprice": 252,
+  "depositpaid": true,
+  "bookingdates": {
+    "checkin": "2018-04-17",
+    "checkout": "2025-10-05"
+  },
+  "additionalneeds": "Breakfast"
+}
