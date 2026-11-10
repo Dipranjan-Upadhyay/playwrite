@@ -1,10 +1,15 @@
 """UI fixtures. `page`, `browser` and `--browser` come from pytest-playwright."""
 import allure
 import pytest
+from playwright.sync_api import expect
 
 from pages.checkout_page import CartPage, CheckoutPage
 from pages.inventory_page import InventoryPage
 from pages.login_page import LoginPage
+
+
+# Public demo site + many parallel browsers: allow more than Playwright's 5s default.
+expect.set_options(timeout=10_000)
 
 
 @pytest.fixture(scope="session")

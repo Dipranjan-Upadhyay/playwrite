@@ -1,4 +1,5 @@
 import allure
+from playwright.sync_api import TimeoutError as PlaywrightTimeoutError
 
 from pages.base_page import BasePage
 
@@ -46,9 +47,19 @@ class InventoryPage(BasePage):
         return int(self.cart_badge.inner_text()) if self.cart_badge.count() else 0
 
     def go_to_cart(self):
-        self.cart_link.click()
+        with allure.step("Open cart"):
+            self.cart_link.click()
+            self.page.wait_for_url("**/cart.html")
 
     def logout(self):
         with allure.step("Log out"):
-            self.menu_button.click()
+            # The menu button can be clicked before the app's JS is ready; retry until it opens.
+            for _ in range(3):
+                self.menu_button.click()
+                try:
+                    self.logout_link.wait_for(state="visible", timeout=3000)
+                    break
+                except PlaywrightTimeoutError:
+                    continue
             self.logout_link.click()
+            self.page.wait_for_url(f"{self.base_url}/")

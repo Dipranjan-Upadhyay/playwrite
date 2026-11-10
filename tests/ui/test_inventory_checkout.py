@@ -42,6 +42,7 @@ class TestCheckout:
     def test_end_to_end_checkout(self, inventory_page, cart_page, checkout_page):
         inventory_page.add_to_cart(BACKPACK).add_to_cart(BIKE_LIGHT)
         inventory_page.go_to_cart()
+        expect(cart_page.cart_items).to_have_count(2)
         assert sorted(cart_page.item_names()) == sorted([BACKPACK, BIKE_LIGHT])
 
         cart_page.checkout()
