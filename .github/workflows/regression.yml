@@ -1,0 +1,133 @@
+name: Regression
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 6 * * 1-5"  # weekday nightly run
+
+concurrency:
+  group: regression-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PYTHON_VERSION: "3.12"
+
+jobs:
+  api-tests:
+    name: API tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Run API suite (parallel)
+        run: pytest tests/api -n 4 --reruns 1 --reruns-delay 2 --alluredir=allure-results
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: allure-results-api
+          path: allure-results
+          retention-days: 7
+
+  ui-tests:
+    name: UI tests (${{ matrix.browser }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox, webkit]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Install ${{ matrix.browser }}
+        run: python -m playwright install --with-deps ${{ matrix.browser }}
+      - name: Run UI suite (parallel)
+        run: >
+          pytest tests/ui --browser ${{ matrix.browser }} -n auto
+          --reruns 1 --reruns-delay 2
+          --tracing retain-on-failure --video retain-on-failure
+          --alluredir=allure-results
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: allure-results-${{ matrix.browser }}
+          path: allure-results
+          retention-days: 7
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-traces-${{ matrix.browser }}
+          path: test-results
+          retention-days: 7
+
+  report:
+    name: Allure report & metrics
+    needs: [api-tests, ui-tests]
+    if: always()
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Download all results
+        uses: actions/download-artifact@v4
+        with:
+          pattern: allure-results-*
+          merge-multiple: true
+          path: allure-results
+
+      - name: Restore previous report history (trend graphs)
+        uses: actions/checkout@v4
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+      - name: Prepare results
+        run: |
+          cp allure/categories.json allure-results/
+          if [ -d gh-pages/history ]; then cp -r gh-pages/history allure-results/history; fi
+          cat > allure-results/executor.json <<EOF
+          {"name":"GitHub Actions","type":"github","buildName":"Run #${{ github.run_number }}",
+           "buildUrl":"${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}",
+           "reportUrl":"https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/"}
+          EOF
+
+      - name: Generate Allure report
+        run: |
+          npm install -g allure-commandline@2.30.0
+          allure generate allure-results -o allure-report --clean
+
+      - name: Pass-rate & failure metrics
+        run: python scripts/report_summary.py allure-results --min-pass-rate 90 >> "$GITHUB_STEP_SUMMARY"
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: allure-report
+          path: allure-report
+
+      - name: Publish report to GitHub Pages
+        if: always() && github.ref == 'refs/heads/main'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: allure-report

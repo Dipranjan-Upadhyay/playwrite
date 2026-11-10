@@ -1,0 +1,43 @@
+{
+  "valid_bookings": [
+    {"id": "deposit_paid_with_needs",
+     "payload": {"firstname": "Jane", "lastname": "Doe", "totalprice": 150, "depositpaid": true,
+                 "bookingdates": {"checkin": "2026-03-01", "checkout": "2026-03-05"},
+                 "additionalneeds": "Breakfast"}},
+    {"id": "no_deposit",
+     "payload": {"firstname": "John", "lastname": "Smith", "totalprice": 999, "depositpaid": false,
+                 "bookingdates": {"checkin": "2026-07-10", "checkout": "2026-07-20"},
+                 "additionalneeds": "Late checkout"}},
+    {"id": "unicode_names",
+     "payload": {"firstname": "José", "lastname": "Ñúñez", "totalprice": 1, "depositpaid": true,
+                 "bookingdates": {"checkin": "2026-12-24", "checkout": "2026-12-26"},
+                 "additionalneeds": "None"}}
+  ],
+  "missing_required_fields": [
+    {"id": "missing_firstname", "remove": "firstname"},
+    {"id": "missing_lastname", "remove": "lastname"},
+    {"id": "missing_totalprice", "remove": "totalprice"},
+    {"id": "missing_depositpaid", "remove": "depositpaid"},
+    {"id": "missing_bookingdates", "remove": "bookingdates"}
+  ],
+  "injection_strings": [
+    {"id": "sql_injection", "value": "Robert'); DROP TABLE bookings;--"},
+    {"id": "xss_script", "value": "<script>alert(1)</script>"},
+    {"id": "nosql_operator", "value": "{\"$gt\": \"\"}"},
+    {"id": "path_traversal", "value": "../../etc/passwd"}
+  ],
+  "invalid_tokens": [
+    {"id": "random_string", "token": "not-a-real-token"},
+    {"id": "empty", "token": ""},
+    {"id": "sql_injection", "token": "' OR '1'='1"},
+    {"id": "jwt_like", "token": "eyJhbGciOiJub25lIn0.eyJ1c2VyIjoiYWRtaW4ifQ."},
+    {"id": "oversized", "token": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"}
+  ],
+  "invalid_credentials": [
+    {"id": "wrong_password", "username": "admin", "password": "wrong"},
+    {"id": "wrong_username", "username": "root", "password": "password123"},
+    {"id": "empty_both", "username": "", "password": ""},
+    {"id": "sql_injection", "username": "admin' --", "password": "x"},
+    {"id": "case_sensitive_username", "username": "ADMIN", "password": "password123"}
+  ]
+}

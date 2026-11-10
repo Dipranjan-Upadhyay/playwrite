@@ -1,0 +1,12 @@
+[
+  {"name": "Security regressions", "matchedStatuses": ["failed"],
+   "messageRegex": ".*(403|401|Bad credentials|token|xss|logged in).*"},
+  {"name": "Schema / contract violations", "matchedStatuses": ["failed"],
+   "messageRegex": ".*does not match .*\\.json.*"},
+  {"name": "Product defects", "matchedStatuses": ["failed"]},
+  {"name": "Timeouts & infrastructure", "matchedStatuses": ["broken"],
+   "messageRegex": ".*(Timeout|timed out|ConnectionError|ReadTimeout|net::ERR).*"},
+  {"name": "Test defects (broken tests)", "matchedStatuses": ["broken"]},
+  {"name": "Known issues (xfail)", "matchedStatuses": ["skipped"],
+   "messageRegex": ".*Known defect.*"}
+]

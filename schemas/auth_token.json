@@ -1,0 +1,9 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "auth_token.json",
+  "title": "AuthToken",
+  "type": "object",
+  "required": ["token"],
+  "properties": {"token": {"type": "string", "pattern": "^[A-Za-z0-9]{10,}$"}},
+  "additionalProperties": false
+}

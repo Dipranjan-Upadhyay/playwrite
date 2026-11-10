@@ -1,0 +1,8 @@
+pytest>=8.2
+pytest-playwright>=0.5
+playwright>=1.45
+pytest-xdist>=3.6
+pytest-rerunfailures>=14.0
+requests>=2.32
+jsonschema>=4.22
+allure-pytest>=2.13
