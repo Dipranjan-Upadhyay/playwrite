@@ -1,3 +1,0 @@
-PATCH https://restful-booker.herokuapp.com/booking/2688
-params: None
-body: {'depositpaid': False}

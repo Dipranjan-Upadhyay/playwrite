@@ -1,0 +1,3 @@
+GET https://restful-booker.herokuapp.com/booking/3329
+params: None
+body: None
