@@ -1,0 +1,17 @@
+status: 200
+elapsed: 0.007s
+
+{
+  "bookingid": 411,
+  "booking": {
+    "firstname": "John",
+    "lastname": "Smith",
+    "totalprice": 999,
+    "depositpaid": false,
+    "bookingdates": {
+      "checkin": "2026-07-10",
+      "checkout": "2026-07-20"
+    },
+    "additionalneeds": "Late checkout"
+  }
+}
