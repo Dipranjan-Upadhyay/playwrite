@@ -1,1 +1,1 @@
-[{"values":["https://www.saucedemo.com"],"name":"UI.Base.URL"},{"values":["https://restful-booker.herokuapp.com"],"name":"API.Base.URL"},{"values":["chromium"],"name":"Browsers"},{"values":["3.12.16"],"name":"Python"},{"values":["Linux 7.0.0-1019-azure"],"name":"OS"}]
+[{"values":["https://www.saucedemo.com"],"name":"UI.Base.URL"},{"values":["https://restful-booker.herokuapp.com"],"name":"API.Base.URL"},{"values":["firefox"],"name":"Browsers"},{"values":["3.12.16"],"name":"Python"},{"values":["Linux 7.0.0-1019-azure"],"name":"OS"}]

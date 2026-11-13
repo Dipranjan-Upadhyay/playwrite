@@ -1,3 +1,0 @@
-PATCH https://restful-booker.herokuapp.com/booking/397
-params: None
-body: {'firstname': 'Hacker'}
