@@ -1,0 +1,3 @@
+PATCH https://restful-booker.herokuapp.com/booking/2051
+params: None
+body: {'firstname': 'BasicAuth'}

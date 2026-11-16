@@ -1,0 +1,6 @@
+status: 200
+elapsed: 0.007s
+
+{
+  "reason": "Bad credentials"
+}
