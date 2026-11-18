@@ -1,0 +1,13 @@
+status: 200
+elapsed: 0.091s
+
+{
+  "firstname": "Jim",
+  "lastname": "Jackson",
+  "totalprice": 921,
+  "depositpaid": false,
+  "bookingdates": {
+    "checkin": "2025-11-19",
+    "checkout": "2026-05-15"
+  }
+}

@@ -1,4 +1,0 @@
-status: 403
-elapsed: 0.026s
-
-Forbidden
