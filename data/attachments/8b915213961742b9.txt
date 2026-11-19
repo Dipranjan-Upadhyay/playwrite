@@ -1,0 +1,13 @@
+status: 200
+elapsed: 0.078s
+
+{
+  "firstname": "Mark",
+  "lastname": "Smith",
+  "totalprice": 696,
+  "depositpaid": true,
+  "bookingdates": {
+    "checkin": "2021-09-10",
+    "checkout": "2021-12-19"
+  }
+}
