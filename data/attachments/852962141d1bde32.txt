@@ -1,6 +1,0 @@
-status: 200
-elapsed: 0.004s
-
-{
-  "token": "0c34e95c74be6d4"
-}
