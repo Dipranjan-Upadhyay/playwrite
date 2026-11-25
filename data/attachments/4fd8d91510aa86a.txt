@@ -1,0 +1,13 @@
+status: 200
+elapsed: 0.009s
+
+{
+  "firstname": "Eric",
+  "lastname": "Brown",
+  "totalprice": 667,
+  "depositpaid": false,
+  "bookingdates": {
+    "checkin": "2023-06-30",
+    "checkout": "2024-06-12"
+  }
+}
