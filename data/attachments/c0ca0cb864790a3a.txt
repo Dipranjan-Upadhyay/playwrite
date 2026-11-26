@@ -1,0 +1,3 @@
+DELETE https://restful-booker.herokuapp.com/booking/3275
+params: None
+body: None

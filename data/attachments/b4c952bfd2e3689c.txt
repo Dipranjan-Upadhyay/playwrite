@@ -1,0 +1,6 @@
+status: 200
+elapsed: 0.003s
+
+{
+  "token": "77694f7a550e253"
+}

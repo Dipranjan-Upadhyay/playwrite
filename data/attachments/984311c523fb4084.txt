@@ -1,4 +1,0 @@
-status: 500
-elapsed: 0.008s
-
-Internal Server Error

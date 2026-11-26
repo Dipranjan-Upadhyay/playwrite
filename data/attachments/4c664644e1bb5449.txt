@@ -1,0 +1,6 @@
+status: 200
+elapsed: 0.003s
+
+{
+  "token": "4dc5a86d8a25c26"
+}

@@ -1,3 +1,0 @@
-PATCH https://restful-booker.herokuapp.com/booking/143
-params: None
-body: {'additionalneeds': 'Dinner'}
