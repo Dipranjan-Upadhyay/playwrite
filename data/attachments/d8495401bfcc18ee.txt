@@ -1,0 +1,6 @@
+status: 200
+elapsed: 0.020s
+
+{
+  "token": "5fa63b8a0a48e08"
+}

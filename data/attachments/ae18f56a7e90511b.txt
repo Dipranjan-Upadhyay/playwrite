@@ -1,0 +1,13 @@
+status: 200
+elapsed: 0.020s
+
+{
+  "firstname": "Susan",
+  "lastname": "Brown",
+  "totalprice": 493,
+  "depositpaid": false,
+  "bookingdates": {
+    "checkin": "2015-05-21",
+    "checkout": "2017-02-02"
+  }
+}
